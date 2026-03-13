@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Training Courses — Convertix.work</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.courses-intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:center;margin-bottom:5rem}
+.ci-image{border-radius:20px;overflow:hidden;box-shadow:var(--shadow2)}
+.ci-image img{width:100%;height:420px;object-fit:cover}
+.ci-text .section-label{margin-bottom:.8rem}
+.ci-text p{color:var(--muted);line-height:1.8;font-size:.97rem;margin-top:1rem}
+.ci-points{display:flex;flex-direction:column;gap:.7rem;margin-top:1.5rem}
+.ci-point{display:flex;align-items:center;gap:.7rem;font-size:.88rem;font-weight:500;color:var(--text)}
+.ci-point .icon{width:28px;height:28px;border-radius:8px;background:var(--goldbg);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+
+.courses-grid-full{display:grid;grid-template-columns:repeat(3,1fr);gap:1.8rem;margin-top:3rem}
+.course-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius2);overflow:hidden;transition:all .35s;display:flex;flex-direction:column}
+.course-card:hover{transform:translateY(-6px);box-shadow:var(--shadow2);border-color:rgba(201,153,42,0.25)}
+.course-img{width:100%;height:200px;object-fit:cover}
+.course-body{padding:1.6rem;flex:1}
+.course-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem}
+.course-icon{width:44px;height:44px;border-radius:12px;background:var(--goldbg);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
+.course-title{font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:.3rem}
+.course-desc{font-size:.84rem;color:var(--muted);line-height:1.7;margin-bottom:1.2rem}
+.course-modules{list-style:none;display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.5rem}
+.course-modules li{font-size:.8rem;color:var(--muted);display:flex;align-items:center;gap:.5rem}
+.course-modules li::before{content:'→';color:var(--gold);font-weight:700;font-size:.7rem}
+.course-footer{padding:1.2rem 1.6rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.cf-duration{font-size:.75rem;color:var(--muted);display:flex;align-items:center;gap:.3rem}
+.cf-price{font-size:.82rem;font-weight:700;color:var(--green);background:#f0fdf4;padding:.3rem .7rem;border-radius:50px}
+
+.why-learn{background:var(--navy);padding:80px 5%}
+.why-learn .section-label{color:var(--gold2)}
+.why-learn .section-title{color:var(--white);margin-bottom:3rem}
+.wl-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem}
+.wl-card{padding:2rem 1.5rem;border-radius:var(--radius2);background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);text-align:center;transition:all .3s}
+.wl-card:hover{background:rgba(201,153,42,0.08);border-color:rgba(201,153,42,0.25)}
+.wl-icon{font-size:2rem;margin-bottom:1rem}
+.wl-card h4{font-size:.95rem;font-weight:700;color:var(--white);margin-bottom:.4rem}
+.wl-card p{font-size:.82rem;color:rgba(255,255,255,0.5);line-height:1.7}
+
+.curriculum-section{background:var(--off)}
+.curriculum-tabs{display:flex;gap:.5rem;margin-bottom:2.5rem;flex-wrap:wrap}
+.tab-btn{padding:.5rem 1.2rem;border-radius:50px;font-size:.82rem;font-weight:600;border:1.5px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif}
+.tab-btn.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
+.tab-panel{display:none}
+.tab-panel.active{display:block}
+.curriculum-content{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:start}
+.curr-img{border-radius:16px;overflow:hidden}
+.curr-img img{width:100%;height:320px;object-fit:cover}
+.week-list{list-style:none;display:flex;flex-direction:column;gap:.8rem}
+.week-item{padding:1rem 1.2rem;background:var(--white);border:1px solid var(--border);border-radius:12px;transition:.2s}
+.week-item:hover{border-color:var(--gold);box-shadow:0 4px 16px rgba(201,153,42,0.1)}
+.week-label{font-size:.7rem;color:var(--gold);font-weight:700;letter-spacing:.08em;text-transform:uppercase;margin-bottom:.25rem}
+.week-title{font-size:.9rem;font-weight:600;color:var(--navy)}
+
+@media(max-width:1024px){.courses-intro-grid{grid-template-columns:1fr}.ci-image{display:none}.courses-grid-full{grid-template-columns:repeat(2,1fr)}.wl-grid{grid-template-columns:repeat(2,1fr)}.curriculum-content{grid-template-columns:1fr}}
+@media(max-width:600px){.courses-grid-full{grid-template-columns:1fr}.wl-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Convertix<span>.</span>work</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+    <li><a href="jobs.html">Jobs</a></li><li><a href="courses.html" class="active">Courses</a></li>
+    <li><a href="contact.html">Contact</a></li><li><a href="apply.html" class="nav-cta">Apply Now</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="breadcrumb"><a href="index.html">Home</a> › <span>Training Courses</span></div>
+    <h1>Expert Courses to<br><em>Launch Your Career</em></h1>
+    <p>8 professionally designed training programs that turn complete beginners into sales experts in just 30 days. Fully online, fully free with every job role.</p>
+  </div>
+</div>
+
+<section style="background:var(--white)">
+  <div class="courses-intro-grid">
+    <div class="ci-text reveal">
+      <div class="section-label">Why Our Training Works</div>
+      <div class="section-title">From Beginner to<br>Expert in 30 Days</div>
+      <p>Our courses were built by industry professionals with decades of sales and marketing experience. Every lesson is practical, relevant, and designed for real-world results — not just theory.</p>
+      <div class="ci-points">
+        <div class="ci-point"><div class="icon">🎯</div>Practical, real-world curriculum designed by experts</div>
+        <div class="ci-point"><div class="icon">📱</div>100% online — learn at your own pace, anytime</div>
+        <div class="ci-point"><div class="icon">🤝</div>Live mentorship sessions with senior professionals</div>
+        <div class="ci-point"><div class="icon">🏆</div>Certificate of completion for your professional profile</div>
+        <div class="ci-point"><div class="icon">💰</div>Completely free when you join any Convertix job role</div>
+      </div>
+    </div>
+    <div class="ci-image reveal" data-delay="100">
+      <img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=700&h=840&fit=crop" alt="Training session"/>
+    </div>
+  </div>
+
+  <!-- COURSES GRID -->
+  <div class="section-header-row reveal">
+    <div><div class="section-label">All Courses</div><div class="section-title">8 Expert Training Programs</div></div>
+  </div>
+  <div class="courses-grid-full stagger-parent">
+
+    <div class="course-card stagger-child">
+      <img class="course-img" src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=360&fit=crop" alt="Sales Expert"/>
+      <div class="course-body">
+        <div class="course-header">
+          <div><span class="badge badge-gold">30 Days</span><br><div style="height:.5rem"></div><div class="course-title">30 Days Sales Expert</div></div>
+          <div class="course-icon">🎯</div>
+        </div>
+        <p class="course-desc">The foundational program covering every aspect of professional sales — from first contact to closing. Perfect for beginners and career-changers.</p>
+        <ul class="course-modules"><li>Cold calling & pitch mastery</li><li>Objection handling techniques</li><li>Closing strategies that work</li><li>CRM tools & pipeline management</li><li>Personal branding for sales</li></ul>
+      </div>
+      <div class="course-footer"><span class="cf-duration">📅 30 Days · All Levels</span><span class="cf-price">FREE</span></div>
+    </div>
+
+    <div class="course-card stagger-child">
+      <img class="course-img" src="https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=600&h=360&fit=crop" alt="Bank Products"/>
+      <div class="course-body">
+        <div class="course-header">
+          <div><span class="badge badge-gold">30 Days</span><br><div style="height:.5rem"></div><div class="course-title">Bank Product Sales Training</div></div>
+          <div class="course-icon">🏦</div>
+        </div>
+        <p class="course-desc">Specialised training for selling credit cards, loans, and other financial products. Learn compliance, product knowledge, and high-conversion sales scripts.</p>
+        <ul class="course-modules"><li>Credit card & loan product knowledge</li><li>KYC & RBI compliance basics</li><li>Customer qualification techniques</li><li>Objection handling for finance</li><li>Commission structure optimization</li></ul>
+      </div>
+      <div class="course-footer"><span class="cf-duration">📅 30 Days · Finance</span><span class="cf-price">FREE</span></div>
+    </div>
+
+    <div class="course-card stagger-child">
+      <img class="course-img" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=360&fit=crop" alt="Real Estate"/>
+      <div class="course-body">
+        <div class="course-header">
+          <div><span class="badge badge-gold">30 Days</span><br><div style="height:.5rem"></div><div class="course-title">Real Estate Expert Course</div></div>
+          <div class="course-icon">🏠</div>
+        </div>
+        <p class="course-desc">Everything you need to become a successful real estate agent — property valuation, legal documentation, lead generation, and deal closing.</p>
+        <ul class="course-modules"><li>Property valuation methods</li><li>Buyer-seller negotiation tactics</li><li>Legal docs & RERA basics</li><li>Digital lead generation for realty</li><li>Builder & developer relations</li></ul>
+      </div>
+      <div class="course-footer"><span class="cf-duration">📅 30 Days · All Levels</span><span class="cf-price">FREE</span></div>
+    </div>
+
+    <div class="course-card stagger-child">
+      <img class="course-img" src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=600&h=360&fit=crop" alt="International Sales"/>
+      <div class="course-body">
+        <div class="course-header">
+          <div><span class="badge badge-gold">30 Days</span><br><div style="height:.5rem"></div><div class="course-title">International Sales Expert</div></div>
+          <div class="course-icon">🌍</div>
+        </div>
+        <p class="course-desc">Break into global markets and sell to international clients. Learn cross-cultural communication, global outreach strategies, and international payment handling.</p>
+        <ul class="course-modules"><li>Cross-cultural communication</li><li>Global market research</li><li>Cold email & LinkedIn outreach</li><li>International payment basics</li><li>Time zone & remote coordination</li></ul>
+      </div>
+      <div class="course-footer"><span class="cf-duration">📅 30 Days · Intermediate</span><span class="cf-price">FREE</span></div>
+    </div>
+
+    <div class="course-card stagger-child">
+      <img class="course-img" src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=600&h=360&fit=crop" alt="Hidden Talent"/>
+      <div class="course-body">
+        <div class="course-header">
+          <div><span class="badge badge-gold">30 Days</span><br><div style="height:.5rem"></div><div class="course-title">Hidden Talent Sales Training</div></div>
+          <div class="course-icon">✨</div>
+        </div>
+        <p class="course-desc">A unique program that starts with a skills and personality assessment to identify your natural sales strengths — then builds a custom training path around them.</p>
+        <ul class="course-modules"><li>Skills & personality assessment</li><li>Strength-based selling techniques</li><li>Personal brand development</li><li>Custom career mapping</li><li>Mentorship & coaching sessions</li></ul>
+      </div>
+      <div class="course-footer"><span class="cf-duration">📅 30 Days · All Levels</span><span class="cf-price">FREE</span></div>
+    </div>
+
+    <div class="course-card stagger-child">
+      <img class="course-img" src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=600&h=360&fit=crop" alt="Stock Market"/>
+      <div class="course-body">
+        <div class="course-header">
+          <div><span class="badge badge-gold">30 Days</span><br><div style="height:.5rem"></div><div class="course-title">Stock Market Expert in 30 Days</div></div>
+          <div class="course-icon">📈</div>
+        </div>
+        <p class="course-desc">Go from zero to confident stock market advisory agent. Understand market mechanics, technical analysis, and how to guide investors to profitable decisions.</p>
+        <ul class="course-modules"><li>Equity market fundamentals</li><li>Technical & fundamental analysis</li><li>Advisory sales pitch techniques</li><li>SEBI regulations overview</li><li>Risk management for clients</li></ul>
+      </div>
+      <div class="course-footer"><span class="cf-duration">📅 30 Days · Beginner Friendly</span><span class="cf-price">FREE</span></div>
+    </div>
+
+    <div class="course-card stagger-child">
+      <img class="course-img" src="https://images.unsplash.com/photo-1432888622747-4eb9a8efbc07?w=600&h=360&fit=crop" alt="Digital Marketing"/>
+      <div class="course-body">
+        <div class="course-header">
+          <div><span class="badge badge-gold">30 Days</span><br><div style="height:.5rem"></div><div class="course-title">Digital Marketing Agency Expert</div></div>
+          <div class="course-icon">💻</div>
+        </div>
+        <p class="course-desc">Learn to sell digital marketing packages and website services. Master the pitch, understand SEO/SEM basics, and build recurring agency revenue.</p>
+        <ul class="course-modules"><li>SEO, SEM & social media ads</li><li>Website sales pitch mastery</li><li>Agency package creation</li><li>Client onboarding & retention</li><li>Recurring revenue strategies</li></ul>
+      </div>
+      <div class="course-footer"><span class="cf-duration">📅 30 Days · All Levels</span><span class="cf-price">FREE</span></div>
+    </div>
+
+    <div class="course-card stagger-child">
+      <img class="course-img" src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=600&h=360&fit=crop" alt="Social Media"/>
+      <div class="course-body">
+        <div class="course-header">
+          <div><span class="badge badge-gold">30 Days</span><br><div style="height:.5rem"></div><div class="course-title">Social Media Referral Program Training</div></div>
+          <div class="course-icon">📱</div>
+        </div>
+        <p class="course-desc">Turn your social media presence into an income stream. Learn to grow your network, create engaging content, and earn consistently through referrals.</p>
+        <ul class="course-modules"><li>Platform-specific growth strategies</li><li>Content creation for conversions</li><li>Referral network building</li><li>Automated income systems</li><li>Performance tracking & scaling</li></ul>
+      </div>
+      <div class="course-footer"><span class="cf-duration">📅 30 Days · Beginner Friendly</span><span class="cf-price">FREE</span></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- WHY LEARN -->
+<section class="why-learn">
+  <div class="reveal" style="text-align:center;margin-bottom:3rem">
+    <div class="section-label">The Learning Experience</div>
+    <div class="section-title">How We Teach You to Succeed</div>
+  </div>
+  <div class="wl-grid stagger-parent">
+    <div class="wl-card stagger-child"><div class="wl-icon">🎥</div><h4>Video Lessons</h4><p>High-quality video modules you can watch anytime, on any device — at your own pace.</p></div>
+    <div class="wl-card stagger-child"><div class="wl-icon">📝</div><h4>Live Practice</h4><p>Role-play scenarios and live call practice sessions to build real confidence fast.</p></div>
+    <div class="wl-card stagger-child"><div class="wl-icon">👨‍🏫</div><h4>Expert Mentors</h4><p>Direct access to experienced industry mentors who guide you through every challenge.</p></div>
+    <div class="wl-card stagger-child"><div class="wl-icon">🏆</div><h4>Certificate</h4><p>Earn a professional certificate upon completion to add to your LinkedIn and resume.</p></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<div style="background:linear-gradient(135deg,var(--gold) 0%,#b8841f 100%);padding:70px 5%;text-align:center;position:relative;overflow:hidden">
+  <div style="position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,0.07) 1.5px,transparent 1.5px);background-size:28px 28px"></div>
+  <div style="position:relative">
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);color:#fff;font-weight:700;margin-bottom:1rem">Ready to Enroll in a Free Course?</h2>
+    <p style="color:rgba(255,255,255,0.8);max-width:460px;margin:0 auto 2rem;font-size:1rem">All courses are included free when you apply for any Convertix job position. Apply today and start learning tomorrow.</p>
+    <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
+      <a href="apply.html" class="btn" style="background:#fff;color:var(--gold)">Enroll for Free →</a>
+      <a href="jobs.html" class="btn" style="background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.5)">Browse Jobs</a>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="index.html" class="nav-logo" style="color:#fff">Convertix<span style="color:var(--gold2)">.</span>work</a><p>Empowering people across India with flexible remote work and expert-level training.</p><div class="footer-social"><a href="#" class="social-btn">in</a><a href="#" class="social-btn">f</a><a href="#" class="social-btn">tw</a><a href="#" class="social-btn">ig</a></div></div>
+    <div class="footer-col"><h5>Quick Links</h5><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="jobs.html">Available Jobs</a></li><li><a href="courses.html">Courses</a></li><li><a href="apply.html">Apply Now</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h5>Our Courses</h5><ul><li><a href="courses.html">Sales Expert</a></li><li><a href="courses.html">Bank Product Sales</a></li><li><a href="courses.html">Real Estate</a></li><li><a href="courses.html">Stock Market</a></li><li><a href="courses.html">Digital Marketing</a></li><li><a href="courses.html">International Sales</a></li></ul></div>
+    <div class="footer-col"><h5>Contact Us</h5>
+      <div class="footer-contact-item"><span class="icon">📞</span><div><a href="tel:+917701863397">+91 77018 63397</a></div></div>
+      <div class="footer-contact-item"><span class="icon">✉️</span><div><a href="mailto:checkmymood07@gmail.com">checkmymood07@gmail.com</a></div></div>
+      <div class="footer-contact-item"><span class="icon">📍</span><div>Krishna Mandir, Sector 39 Road, Sector 31, Gurgaon</div></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Convertix.work · All Rights Reserved</span><span>Made with ❤️ for India's remote workforce</span></div>
+</footer>
+<script src="main.js"></script>
+</body>
+</html>

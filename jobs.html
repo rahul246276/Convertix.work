@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Available Jobs — Convertix.work</title>
+<link rel="stylesheet" href="style.css"/>
+<style>
+.jobs-filter-bar{display:flex;gap:.6rem;flex-wrap:wrap;margin-bottom:2.5rem}
+.filter-btn{padding:.45rem 1.1rem;border-radius:50px;font-size:.8rem;font-weight:600;border:1.5px solid var(--border);background:var(--white);color:var(--muted);cursor:pointer;transition:all .2s;font-family:'Outfit',sans-serif}
+.filter-btn:hover,.filter-btn.active{background:var(--navy);color:var(--white);border-color:var(--navy)}
+
+.jobs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1.5rem}
+.job-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius2);overflow:hidden;transition:all .3s;display:flex;flex-direction:column}
+.job-card:hover{transform:translateY(-5px);box-shadow:var(--shadow2);border-color:rgba(201,153,42,0.25)}
+.job-card-img{width:100%;height:200px;object-fit:cover}
+.job-card-body{padding:1.8rem;flex:1}
+.job-card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:1rem}
+.job-icon-wrap{width:52px;height:52px;border-radius:14px;background:var(--goldbg);display:flex;align-items:center;justify-content:center;font-size:1.6rem;flex-shrink:0}
+.job-title{font-size:1.15rem;font-weight:700;color:var(--navy);margin-bottom:.4rem}
+.job-desc{font-size:.86rem;color:var(--muted);line-height:1.7;margin-bottom:1.2rem}
+.job-tags{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:1.4rem}
+.job-features{list-style:none;display:flex;flex-direction:column;gap:.45rem;margin-bottom:1.5rem}
+.job-features li{font-size:.83rem;color:var(--muted);display:flex;align-items:center;gap:.5rem}
+.job-features li::before{content:'✓';color:var(--gold);font-weight:800;font-size:.8rem}
+.job-card-footer{padding:1.2rem 1.8rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
+.earning-info .earn-label{font-size:.7rem;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.earning-info .earn-val{font-size:.95rem;font-weight:700;color:var(--navy)}
+
+.sidebar-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius2);padding:1.8rem;position:sticky;top:100px}
+.sidebar-card h3{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:1rem}
+.sidebar-steps{list-style:none;display:flex;flex-direction:column;gap:.9rem}
+.sidebar-steps li{display:flex;gap:.8rem;align-items:flex-start;font-size:.84rem;color:var(--muted)}
+.sidebar-steps .snum{width:24px;height:24px;border-radius:50%;background:var(--navy);color:#fff;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.contact-quick{margin-top:1.5rem;padding-top:1.5rem;border-top:1px solid var(--border)}
+.cq-item{display:flex;align-items:center;gap:.7rem;font-size:.83rem;color:var(--muted);margin-bottom:.6rem}
+.cq-item a{color:var(--navy);font-weight:600}
+
+.jobs-layout{display:grid;grid-template-columns:1fr 320px;gap:2.5rem;align-items:start}
+
+@media(max-width:1024px){.jobs-layout{grid-template-columns:1fr}.sidebar-card{position:static}}
+@media(max-width:700px){.jobs-grid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<nav class="navbar">
+  <a href="index.html" class="nav-logo">Convertix<span>.</span>work</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
+    <li><a href="jobs.html" class="active">Jobs</a></li><li><a href="courses.html">Courses</a></li>
+    <li><a href="contact.html">Contact</a></li><li><a href="apply.html" class="nav-cta">Apply Now</a></li>
+  </ul>
+  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <div class="breadcrumb"><a href="index.html">Home</a> › <span>Available Jobs</span></div>
+    <h1>Find Your Perfect<br><em>Remote Role</em></h1>
+    <p>Browse 10+ work-from-home positions across sales, finance, real estate, and digital industries. All roles come with free 30-day training.</p>
+  </div>
+</div>
+
+<section style="background:var(--off)">
+  <div class="jobs-layout">
+    <div>
+      <div class="jobs-filter-bar reveal">
+        <button class="filter-btn active">All Jobs</button>
+        <button class="filter-btn">Sales</button>
+        <button class="filter-btn">Finance</button>
+        <button class="filter-btn">Real Estate</button>
+        <button class="filter-btn">Digital</button>
+        <button class="filter-btn">Stock Market</button>
+      </div>
+      <div class="jobs-grid stagger-parent">
+
+        <!-- 1 -->
+        <div class="job-card stagger-child">
+          <img class="job-card-img" src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&h=400&fit=crop" alt="Tele Sales"/>
+          <div class="job-card-body">
+            <div class="job-card-header">
+              <div><div class="job-title">Tele Sales & Marketing</div><div class="job-tags"><span class="badge badge-gold">Remote</span><span class="badge badge-green">Open</span></div></div>
+              <div class="job-icon-wrap">📞</div>
+            </div>
+            <p class="job-desc">Connect with potential customers over phone and digital channels to pitch products and services. Build relationships and close deals from your home office.</p>
+            <ul class="job-features"><li>Work fully from home</li><li>Flexible daily schedule</li><li>Performance-based incentives</li><li>30-day Sales Expert Training included</li></ul>
+          </div>
+          <div class="job-card-footer"><div class="earning-info"><div class="earn-label">Earnings</div><div class="earn-val">Commission-based</div></div><a href="apply.html" class="btn btn-dark" style="padding:.6rem 1.3rem;font-size:.82rem">Apply Now →</a></div>
+        </div>
+
+        <!-- 2 -->
+        <div class="job-card stagger-child">
+          <img class="job-card-img" src="https://images.unsplash.com/photo-1601597111158-2fceff292cdc?w=700&h=400&fit=crop" alt="Credit Card Sales"/>
+          <div class="job-card-body">
+            <div class="job-card-header">
+              <div><div class="job-title">Credit Card Sales</div><div class="job-tags"><span class="badge badge-gold">Remote</span><span class="badge badge-green">Open</span></div></div>
+              <div class="job-icon-wrap">💳</div>
+            </div>
+            <p class="job-desc">Help customers discover the right credit card products from top banks. Earn attractive referral fees for every successful application.</p>
+            <ul class="job-features"><li>Partner with leading banks</li><li>Per-card commission structure</li><li>Bank Product Sales Training included</li><li>No daily targets initially</li></ul>
+          </div>
+          <div class="job-card-footer"><div class="earning-info"><div class="earn-label">Earnings</div><div class="earn-val">Per-card commission</div></div><a href="apply.html" class="btn btn-dark" style="padding:.6rem 1.3rem;font-size:.82rem">Apply Now →</a></div>
+        </div>
+
+        <!-- 3 -->
+        <div class="job-card stagger-child">
+          <img class="job-card-img" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=700&h=400&fit=crop" alt="Loan Sales"/>
+          <div class="job-card-body">
+            <div class="job-card-header">
+              <div><div class="job-title">Loan Sales</div><div class="job-tags"><span class="badge badge-gold">Remote</span><span class="badge badge-green">Open</span></div></div>
+              <div class="job-icon-wrap">🏦</div>
+            </div>
+            <p class="job-desc">Connect borrowers with the right lending solutions — personal loans, home loans, and business financing. A high-demand and lucrative field.</p>
+            <ul class="job-features"><li>Personal, home & business loans</li><li>High per-loan commissions</li><li>Bank Product Sales Training included</li><li>Large customer demand</li></ul>
+          </div>
+          <div class="job-card-footer"><div class="earning-info"><div class="earn-label">Earnings</div><div class="earn-val">High commissions</div></div><a href="apply.html" class="btn btn-dark" style="padding:.6rem 1.3rem;font-size:.82rem">Apply Now →</a></div>
+        </div>
+
+        <!-- 4 -->
+        <div class="job-card stagger-child">
+          <img class="job-card-img" src="https://images.unsplash.com/photo-1559526324-593bc073d938?w=700&h=400&fit=crop" alt="Insurance Sales"/>
+          <div class="job-card-body">
+            <div class="job-card-header">
+              <div><div class="job-title">Insurance Sales</div><div class="job-tags"><span class="badge badge-gold">Remote</span><span class="badge badge-green">Open</span></div></div>
+              <div class="job-icon-wrap">🛡️</div>
+            </div>
+            <p class="job-desc">Sell life, health, and general insurance policies. Insurance is one of India's fastest-growing sectors with excellent long-term earning potential.</p>
+            <ul class="job-features"><li>Life, health & general insurance</li><li>Recurring income on renewals</li><li>IRDAI-compliant training</li><li>Top insurer partnerships</li></ul>
+          </div>
+          <div class="job-card-footer"><div class="earning-info"><div class="earn-label">Earnings</div><div class="earn-val">+ Renewal income</div></div><a href="apply.html" class="btn btn-dark" style="padding:.6rem 1.3rem;font-size:.82rem">Apply Now →</a></div>
+        </div>
+
+        <!-- 5 -->
+        <div class="job-card stagger-child">
+          <img class="job-card-img" src="https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=700&h=400&fit=crop" alt="Real Estate"/>
+          <div class="job-card-body">
+            <div class="job-card-header">
+              <div><div class="job-title">Real Estate Agent</div><div class="job-tags"><span class="badge badge-gold">Remote</span><span class="badge badge-blue">Hot</span></div></div>
+              <div class="job-icon-wrap">🏠</div>
+            </div>
+            <p class="job-desc">Represent buyers and sellers in residential and commercial property transactions. Real estate offers some of the highest single-deal commissions in sales.</p>
+            <ul class="job-features"><li>Residential & commercial deals</li><li>High per-deal commissions</li><li>Real Estate Expert Course included</li><li>Builder & developer tie-ups</li></ul>
+          </div>
+          <div class="job-card-footer"><div class="earning-info"><div class="earn-label">Earnings</div><div class="earn-val">Very high per deal</div></div><a href="apply.html" class="btn btn-dark" style="padding:.6rem 1.3rem;font-size:.82rem">Apply Now →</a></div>
+        </div>
+
+        <!-- 6 -->
+        <div class="job-card stagger-child">
+          <img class="job-card-img" src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=700&h=400&fit=crop" alt="International Sales"/>
+          <div class="job-card-body">
+            <div class="job-card-header">
+              <div><div class="job-title">International Sales</div><div class="job-tags"><span class="badge badge-gold">Remote</span><span class="badge badge-green">Open</span></div></div>
+              <div class="job-icon-wrap">🌍</div>
+            </div>
+            <p class="job-desc">Take your skills global and sell to international clients. Earn in foreign currency and build a world-class sales career without leaving India.</p>
+            <ul class="job-features"><li>International clientele</li><li>Foreign currency earnings</li><li>International Sales Expert training</li><li>English & multilingual roles</li></ul>
+          </div>
+          <div class="job-card-footer"><div class="earning-info"><div class="earn-label">Earnings</div><div class="earn-val">USD/GBP commissions</div></div><a href="apply.html" class="btn btn-dark" style="padding:.6rem 1.3rem;font-size:.82rem">Apply Now →</a></div>
+        </div>
+
+        <!-- 7 -->
+        <div class="job-card stagger-child">
+          <img class="job-card-img" src="https://images.unsplash.com/photo-1541534741688-6078c6bfb5c5?w=700&h=400&fit=crop" alt="Hidden Talent"/>
+          <div class="job-card-body">
+            <div class="job-card-header">
+              <div><div class="job-title">Hidden Talent Program</div><div class="job-tags"><span class="badge badge-gold">Remote</span><span class="badge badge-navy">Unique</span></div></div>
+              <div class="job-icon-wrap">✨</div>
+            </div>
+            <p class="job-desc">Discover your unique strengths. Our team analyses your skills and interests to match you with the perfect opportunity — a truly personalised career path.</p>
+            <ul class="job-features"><li>Personalised skills assessment</li><li>Custom career mapping</li><li>Hidden Talent Sales Training</li><li>Ongoing mentorship</li></ul>
+          </div>
+          <div class="job-card-footer"><div class="earning-info"><div class="earn-label">Earnings</div><div class="earn-val">Role-specific</div></div><a href="apply.html" class="btn btn-dark" style="padding:.6rem 1.3rem;font-size:.82rem">Apply Now →</a></div>
+        </div>
+
+        <!-- 8 -->
+        <div class="job-card stagger-child">
+          <img class="job-card-img" src="https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=700&h=400&fit=crop" alt="Stock Market"/>
+          <div class="job-card-body">
+            <div class="job-card-header">
+              <div><div class="job-title">Stock Market Expert Agent</div><div class="job-tags"><span class="badge badge-gold">Remote</span><span class="badge badge-blue">Hot</span></div></div>
+              <div class="job-icon-wrap">📈</div>
+            </div>
+            <p class="job-desc">Guide investors and earn as a certified stock market advisory agent. One of the most in-demand and rewarding financial roles in India right now.</p>
+            <ul class="job-features"><li>SEBI-compliant advisory framework</li><li>Client portfolio management</li><li>Stock Market Expert training</li><li>High advisory fees</li></ul>
+          </div>
+          <div class="job-card-footer"><div class="earning-info"><div class="earn-label">Earnings</div><div class="earn-val">Advisory fees</div></div><a href="apply.html" class="btn btn-dark" style="padding:.6rem 1.3rem;font-size:.82rem">Apply Now →</a></div>
+        </div>
+
+        <!-- 9 -->
+        <div class="job-card stagger-child">
+          <img class="job-card-img" src="https://images.unsplash.com/photo-1432888622747-4eb9a8efbc07?w=700&h=400&fit=crop" alt="Digital Marketing"/>
+          <div class="job-card-body">
+            <div class="job-card-header">
+              <div><div class="job-title">Website Sales / Digital Marketing</div><div class="job-tags"><span class="badge badge-gold">Remote</span><span class="badge badge-green">Open</span></div></div>
+              <div class="job-icon-wrap">💻</div>
+            </div>
+            <p class="job-desc">Sell website design packages and digital marketing services to growing businesses. Every business needs an online presence — this market is limitless.</p>
+            <ul class="job-features"><li>Website & SEO packages</li><li>Digital agency service sales</li><li>Digital Marketing Agency Expert course</li><li>Recurring retainer commissions</li></ul>
+          </div>
+          <div class="job-card-footer"><div class="earning-info"><div class="earn-label">Earnings</div><div class="earn-val">Retainer commissions</div></div><a href="apply.html" class="btn btn-dark" style="padding:.6rem 1.3rem;font-size:.82rem">Apply Now →</a></div>
+        </div>
+
+        <!-- 10 -->
+        <div class="job-card stagger-child">
+          <img class="job-card-img" src="https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=700&h=400&fit=crop" alt="Social Media"/>
+          <div class="job-card-body">
+            <div class="job-card-header">
+              <div><div class="job-title">Social Media Referral Program</div><div class="job-tags"><span class="badge badge-gold">Remote</span><span class="badge badge-green">Open</span></div></div>
+              <div class="job-icon-wrap">📱</div>
+            </div>
+            <p class="job-desc">Use your existing social network to earn. Share opportunities, refer new members and customers, and earn commission for every successful referral you make.</p>
+            <ul class="job-features"><li>Use Instagram, WhatsApp, Facebook</li><li>Earn per successful referral</li><li>Social Media Referral Training</li><li>Zero investment needed</li></ul>
+          </div>
+          <div class="job-card-footer"><div class="earning-info"><div class="earn-label">Earnings</div><div class="earn-val">Per referral</div></div><a href="apply.html" class="btn btn-dark" style="padding:.6rem 1.3rem;font-size:.82rem">Apply Now →</a></div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div>
+      <div class="sidebar-card reveal">
+        <h3>How to Apply</h3>
+        <ul class="sidebar-steps">
+          <li><div class="snum">1</div><div>Fill the quick application form with your name, phone, email & city.</div></li>
+          <li><div class="snum">2</div><div>Choose your preferred job category and work track.</div></li>
+          <li><div class="snum">3</div><div>Our team will contact you within 24 hours.</div></li>
+          <li><div class="snum">4</div><div>Complete free 30-day training and start earning!</div></li>
+        </ul>
+        <div style="margin-top:1.5rem"><a href="apply.html" class="btn btn-dark" style="width:100%;justify-content:center">Apply for Free →</a></div>
+        <div class="contact-quick">
+          <div class="cq-item">📞 <a href="tel:+917701863397">+91 77018 63397</a></div>
+          <div class="cq-item">✉️ <a href="mailto:checkmymood07@gmail.com">checkmymood07@gmail.com</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-grid">
+    <div class="footer-brand"><a href="index.html" class="nav-logo" style="color:#fff">Convertix<span style="color:var(--gold2)">.</span>work</a><p>Empowering people across India with flexible remote work and expert-level training.</p><div class="footer-social"><a href="#" class="social-btn">in</a><a href="#" class="social-btn">f</a><a href="#" class="social-btn">tw</a><a href="#" class="social-btn">ig</a></div></div>
+    <div class="footer-col"><h5>Quick Links</h5><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="jobs.html">Available Jobs</a></li><li><a href="courses.html">Courses</a></li><li><a href="apply.html">Apply Now</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+    <div class="footer-col"><h5>Job Categories</h5><ul><li><a href="jobs.html">Tele Sales</a></li><li><a href="jobs.html">Credit Card Sales</a></li><li><a href="jobs.html">Real Estate Agent</a></li><li><a href="jobs.html">Stock Market</a></li><li><a href="jobs.html">Digital Marketing</a></li><li><a href="jobs.html">Insurance Sales</a></li></ul></div>
+    <div class="footer-col"><h5>Contact Us</h5>
+      <div class="footer-contact-item"><span class="icon">📞</span><div><a href="tel:+917701863397">+91 77018 63397</a></div></div>
+      <div class="footer-contact-item"><span class="icon">✉️</span><div><a href="mailto:checkmymood07@gmail.com">checkmymood07@gmail.com</a></div></div>
+      <div class="footer-contact-item"><span class="icon">📍</span><div>Krishna Mandir, Sector 39 Road, Sector 31, Gurgaon</div></div>
+    </div>
+  </div>
+  <div class="footer-bottom"><span>© 2025 Convertix.work · All Rights Reserved</span><span>Made with ❤️ for India's remote workforce</span></div>
+</footer>
+<script src="main.js"></script>
+<script>
+document.querySelectorAll('.filter-btn').forEach(btn=>{
+  btn.addEventListener('click',()=>{
+    document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+    btn.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
