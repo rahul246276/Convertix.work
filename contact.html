@@ -5,6 +5,7 @@
 <title>Contact Us — Convertix.work</title>
 <link rel="stylesheet" href="style.css"/>
 <style>
+/* ── Contact Page Specific Styles ── */
 .contact-layout{display:grid;grid-template-columns:1fr 1.3fr;gap:4rem;align-items:start}
 .contact-info h2{font-family:'Cormorant Garamond',serif;font-size:1.7rem;font-weight:700;color:var(--navy);margin-bottom:.8rem}
 .contact-info p{color:var(--muted);line-height:1.8;font-size:.95rem;margin-bottom:2rem}
@@ -15,8 +16,6 @@
 .ccard-icon{width:46px;height:46px;border-radius:12px;background:linear-gradient(135deg,var(--goldbg),#fff3d6);display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0}
 .ccard-label{font-size:.72rem;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;margin-bottom:.2rem}
 .ccard-val{font-size:.95rem;font-weight:600;color:var(--navy)}
-.ccard-val a{color:var(--navy)}
-.ccard-val a:hover{color:var(--gold)}
 
 .hours-card{background:var(--navy);border-radius:var(--radius);padding:1.5rem}
 .hours-title{font-size:.8rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold2);font-weight:700;margin-bottom:1rem}
@@ -26,8 +25,6 @@
 .hours-time{color:var(--white);font-weight:600}
 .hours-time.closed{color:rgba(255,255,255,0.3)}
 
-.contact-photo{width:100%;height:200px;object-fit:cover;border-radius:var(--radius);margin-top:1.5rem}
-
 /* Form */
 .contact-form-card{background:var(--white);border:1px solid var(--border);border-radius:var(--radius2);padding:2.5rem;box-shadow:var(--shadow)}
 .cfc-title{font-size:1.15rem;font-weight:700;color:var(--navy);margin-bottom:.3rem}
@@ -35,15 +32,6 @@
 .submit-btn{width:100%;background:linear-gradient(135deg,var(--gold),var(--gold2));color:var(--white);padding:.95rem;border-radius:var(--radius);font-weight:700;font-size:1rem;border:none;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .3s;box-shadow:0 8px 24px rgba(201,153,42,0.25)}
 .submit-btn:hover{transform:translateY(-2px);box-shadow:0 14px 32px rgba(201,153,42,0.4)}
 .contact-success{display:none;background:#f0fdf4;border:1px solid rgba(22,163,74,0.25);border-radius:var(--radius);padding:1rem;text-align:center;color:#15803d;font-size:.88rem;margin-top:1rem}
-
-/* Map placeholder */
-.map-section{background:var(--off);padding:0}
-.map-container{width:100%;height:400px;background:var(--navy2);position:relative;overflow:hidden}
-.map-container iframe{width:100%;height:100%;border:none}
-.map-overlay{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--white);border-radius:16px;padding:1.5rem;text-align:center;box-shadow:var(--shadow2)}
-.map-overlay .pin{font-size:2.5rem;margin-bottom:.5rem}
-.map-overlay h4{font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:.2rem}
-.map-overlay p{font-size:.8rem;color:var(--muted)}
 
 /* FAQ */
 .faq-section{background:var(--white)}
@@ -66,63 +54,77 @@
     <li><a href="jobs.html">Jobs</a></li><li><a href="courses.html">Courses</a></li>
     <li><a href="contact.html" class="active">Contact</a></li><li><a href="apply.html" class="nav-cta">Apply Now</a></li>
   </ul>
-  <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  <button class="hamburger" id="hamburger" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
 </nav>
+<div class="nav-overlay" id="navOverlay"></div>
 
 <div class="page-hero">
   <div class="page-hero-content">
     <div class="breadcrumb"><a href="index.html">Home</a> › <span>Contact Us</span></div>
     <h1>We're Here to<br><em>Help You</em></h1>
-    <p>Have questions about jobs, training, or joining our team? Reach out to us through any channel below and we'll respond within 24 hours.</p>
+    <p>Have questions about jobs, training, or joining our team? Reach out to us through the form below and we'll respond within 24 hours.</p>
   </div>
 </div>
 
+<!-- MAIN CONTACT SECTION -->
 <section style="background:var(--off)">
   <div class="contact-layout">
-    <!-- INFO -->
+
+    <!-- INFO COLUMN -->
+    <!-- STEP 3: Phone & Email contact cards removed. Address and hours retained. -->
     <div class="contact-info reveal">
       <h2>Get in Touch</h2>
-      <p>We're a friendly team based in Gurgaon and always happy to help new members start their remote work journey. Don't hesitate to reach out.</p>
+      <p>We're a friendly team based in Gurgaon and always happy to help new members start their remote work journey. Fill out the form and we'll reply within 24 hours.</p>
+
       <div class="contact-cards">
-        <div class="ccard">
-          <div class="ccard-icon">📞</div>
-          <div><div class="ccard-label">Call / WhatsApp</div><div class="ccard-val"><a href="tel:+917701863397">+91 77018 63397</a></div></div>
-        </div>
-        <div class="ccard">
-          <div class="ccard-icon">✉️</div>
-          <div><div class="ccard-label">Email Address</div><div class="ccard-val"><a href="mailto:checkmymood07@gmail.com">checkmymood07@gmail.com</a></div></div>
-        </div>
+        <!-- Address card retained -->
         <div class="ccard">
           <div class="ccard-icon">📍</div>
-          <div><div class="ccard-label">Office Address</div><div class="ccard-val">Krishna Mandir, Sector 39 Road,<br>Sector 31, Gurgaon, Haryana</div></div>
+          <div>
+            <div class="ccard-label">Office Address</div>
+            <div class="ccard-val">Krishna Mandir, Sector 39 Road,<br>Sector 31, Gurgaon, Haryana</div>
+          </div>
         </div>
+        <!-- Response time card -->
         <div class="ccard">
           <div class="ccard-icon">⚡</div>
-          <div><div class="ccard-label">Response Time</div><div class="ccard-val">Within 24 hours guaranteed</div></div>
+          <div>
+            <div class="ccard-label">Response Time</div>
+            <div class="ccard-val">Within 24 hours guaranteed</div>
+          </div>
+        </div>
+        <!-- Apply card -->
+        <div class="ccard">
+          <div class="ccard-icon">🚀</div>
+          <div>
+            <div class="ccard-label">Ready to Start?</div>
+            <div class="ccard-val"><a href="apply.html" style="color:var(--gold);font-weight:700">Apply for Free — Takes 2 Minutes →</a></div>
+          </div>
         </div>
       </div>
+
+      <!-- Working Hours -->
       <div class="hours-card">
         <div class="hours-title">Working Hours</div>
         <div class="hours-row"><span class="hours-day">Monday – Friday</span><span class="hours-time">9:00 AM – 7:00 PM</span></div>
         <div class="hours-row"><span class="hours-day">Saturday</span><span class="hours-time">10:00 AM – 5:00 PM</span></div>
         <div class="hours-row"><span class="hours-day">Sunday</span><span class="hours-time closed">Closed</span></div>
       </div>
-      <img class="contact-photo" src="https://images.unsplash.com/photo-1553877522-43269d4ea984?w=800&h=400&fit=crop" alt="Team at office"/>
     </div>
 
-    <!-- FORM -->
+    <!-- CONTACT FORM -->
     <div class="contact-form-card reveal" data-delay="100">
       <div class="cfc-title">💬 Send Us a Message</div>
       <div class="cfc-sub">Fill out the form and we'll get back to you within 24 hours.</div>
       <form id="contactForm" novalidate>
         <div class="form-row">
-          <div class="form-group"><label>Your Name *</label><input type="text" placeholder="Full name" required/></div>
-          <div class="form-group"><label>Phone Number</label><input type="tel" placeholder="+91 XXXXX XXXXX"/></div>
+          <div class="form-group"><label>Your Name *</label><input type="text" name="name" placeholder="Full name" required/></div>
+          <div class="form-group"><label>Phone Number</label><input type="tel" name="phone" placeholder="+91 XXXXX XXXXX"/></div>
         </div>
-        <div class="form-group"><label>Email Address *</label><input type="email" placeholder="your@email.com" required/></div>
+        <div class="form-group"><label>Email Address *</label><input type="email" name="email" placeholder="your@email.com" required/></div>
         <div class="form-group">
           <label>Subject</label>
-          <select>
+          <select name="subject">
             <option value="">Select a topic...</option>
             <option>Job Application Enquiry</option>
             <option>Training Course Information</option>
@@ -132,20 +134,16 @@
             <option>Other</option>
           </select>
         </div>
-        <div class="form-group"><label>Your Message *</label><textarea placeholder="Write your message here..." style="min-height:130px" required></textarea></div>
+        <div class="form-group"><label>Your Message *</label><textarea name="message" placeholder="Write your message here..." style="min-height:130px" required></textarea></div>
         <button type="submit" class="submit-btn">Send Message →</button>
         <div class="contact-success" id="contactSuccess">✅ Message received! We'll get back to you within 24 hours.</div>
       </form>
     </div>
+
   </div>
 </section>
 
-<!-- MAP -->
-<div class="map-section">
-  <div class="map-container">
-    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3507.0!2d77.0324!3d28.4705!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjjCsDI4JzEzLjgiTiA3N8KwMDEnNTYuNyJF!5e0!3m2!1sen!2sin!4v1" allowfullscreen loading="lazy"></iframe>
-  </div>
-</div>
+<!-- STEP 3: Google Map section completely removed -->
 
 <!-- FAQ -->
 <section class="faq-section">
@@ -155,11 +153,11 @@
     <p class="section-sub">Everything you need to know before reaching out to us.</p>
   </div>
   <div class="faq-grid stagger-parent">
-    <div class="faq-item stagger-child"><div class="faq-q">Is there any fee to join Convertix?</div><p class="faq-a">Absolutely not. Joining Convertix.work is 100% free. There are no hidden charges, registration fees, or course fees for job applicants.</p></div>
-    <div class="faq-item stagger-child"><div class="faq-q">Do I need prior sales experience?</div><p class="faq-a">No experience is required. Our 30-day training program is designed for complete beginners and will make you job-ready from scratch.</p></div>
-    <div class="faq-item stagger-child"><div class="faq-q">How soon will I be contacted after applying?</div><p class="faq-a">Our team typically reaches out within 24 hours of receiving your application. Make sure your phone number and email are correct.</p></div>
+    <div class="faq-item stagger-child"><div class="faq-q">Is there any fee to join Convertix?</div><p class="faq-a">Absolutely not. Joining Convertix.work is 100% free. There are no hidden charges or registration fees for job applicants.</p></div>
+    <div class="faq-item stagger-child"><div class="faq-q">Do I need prior sales experience?</div><p class="faq-a">No experience is required. Our training programs are designed for complete beginners and will make you job-ready from scratch.</p></div>
+    <div class="faq-item stagger-child"><div class="faq-q">How soon will I be contacted after applying?</div><p class="faq-a">Our team typically reaches out within 24 hours of receiving your application. Make sure your details are entered correctly.</p></div>
     <div class="faq-item stagger-child"><div class="faq-q">Can students and housewives apply?</div><p class="faq-a">Yes! Our platform is specifically designed for students, housewives, and unemployed individuals looking for flexible income opportunities.</p></div>
-    <div class="faq-item stagger-child"><div class="faq-q">What is the difference between Normal and Premium work?</div><p class="faq-a">Normal work is the standard track — great for beginners. Premium work gives you access to our high-performance team, advanced support, and higher commission tiers.</p></div>
+    <div class="faq-item stagger-child"><div class="faq-q">What is the difference between Normal and Premium work?</div><p class="faq-a">Normal work is the standard track — great for beginners. Premium work gives access to our high-performance team, advanced support, and higher commission tiers with fixed monthly payouts up to ₹4,999.</p></div>
     <div class="faq-item stagger-child"><div class="faq-q">When do I start earning?</div><p class="faq-a">You can start earning from day one of going live. Most members make their first commission within the first two weeks after training completion.</p></div>
   </div>
 </section>
@@ -167,21 +165,20 @@
 <!-- CTA -->
 <div style="background:linear-gradient(135deg,var(--navy) 0%,var(--navy2) 100%);padding:70px 5%;text-align:center">
   <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3.5vw,2.8rem);color:#fff;font-weight:700;margin-bottom:1rem">Still Have Questions?</h2>
-  <p style="color:rgba(255,255,255,0.6);max-width:420px;margin:0 auto 2rem;font-size:1rem">Don't wait — call or WhatsApp us directly and our team will help you get started today.</p>
+  <p style="color:rgba(255,255,255,0.6);max-width:420px;margin:0 auto 2rem;font-size:1rem">Don't wait — fill out the form above or apply directly and our team will help you get started today.</p>
   <div style="display:flex;gap:1rem;justify-content:center;flex-wrap:wrap">
-    <a href="tel:+917701863397" class="btn btn-gold">📞 Call Us Now</a>
-    <a href="apply.html" class="btn" style="background:rgba(255,255,255,0.1);color:#fff;border:2px solid rgba(255,255,255,0.2)">Apply for Free →</a>
+    <a href="apply.html" class="btn btn-gold">Apply for Free →</a>
+    <a href="courses.html" class="btn" style="background:rgba(255,255,255,0.1);color:#fff;border:2px solid rgba(255,255,255,0.2)">Browse Courses</a>
   </div>
 </div>
 
+<!-- FOOTER — phone/email removed per Step 3 -->
 <footer class="footer">
   <div class="footer-grid">
-    <div class="footer-brand"><a href="index.html" class="nav-logo" style="color:#fff">Convertix<span style="color:var(--gold2)">.</span>work</a><p>Empowering people across India with flexible remote work and expert-level training.</p><div class="footer-social"><a href="#" class="social-btn">in</a><a href="#" class="social-btn">f</a><a href="#" class="social-btn">tw</a><a href="#" class="social-btn">ig</a></div></div>
+    <div class="footer-brand"><a href="index.html" class="nav-logo">Convertix<span style="color:var(--gold2)">.</span>work</a><p>Empowering people across India with flexible remote work and expert-level training.</p><div class="footer-social"><a href="#" class="social-btn">in</a><a href="#" class="social-btn">f</a><a href="#" class="social-btn">tw</a><a href="#" class="social-btn">ig</a></div></div>
     <div class="footer-col"><h5>Quick Links</h5><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About Us</a></li><li><a href="jobs.html">Available Jobs</a></li><li><a href="courses.html">Courses</a></li><li><a href="apply.html">Apply Now</a></li><li><a href="contact.html">Contact</a></li></ul></div>
     <div class="footer-col"><h5>Job Categories</h5><ul><li><a href="jobs.html">Tele Sales</a></li><li><a href="jobs.html">Credit Card Sales</a></li><li><a href="jobs.html">Real Estate Agent</a></li><li><a href="jobs.html">Stock Market</a></li><li><a href="jobs.html">Digital Marketing</a></li></ul></div>
-    <div class="footer-col"><h5>Contact Us</h5>
-      <div class="footer-contact-item"><span class="icon">📞</span><div><a href="tel:+917701863397">+91 77018 63397</a></div></div>
-      <div class="footer-contact-item"><span class="icon">✉️</span><div><a href="mailto:checkmymood07@gmail.com">checkmymood07@gmail.com</a></div></div>
+    <div class="footer-col"><h5>Find Us</h5>
       <div class="footer-contact-item"><span class="icon">📍</span><div>Krishna Mandir, Sector 39 Road, Sector 31, Gurgaon</div></div>
     </div>
   </div>
