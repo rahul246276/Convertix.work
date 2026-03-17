@@ -6,11 +6,20 @@
 <title>Convertix.work — Work From Home Jobs & Career Training</title>
 <meta name="description" content="Find remote work-from-home jobs across sales, marketing, real estate and more. Expert training included."/>
 <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 <nav class="navbar">
   <a href="index.html" class="nav-logo">Convertix<span>.</span>work</a>
-  <ul class="nav-links" id="navLinks">
+  
+  <button class="hamburger" id="hamburger" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<ul class="nav-links" id="navLinks">
+    <!-- Mobile menu header: logo + close button -->
+    <li class="nav-mobile-header" style="list-style:none;padding:0;margin:0">
+      <span class="nav-mobile-logo">Convertix<span>.</span>work</span>
+      <button class="nav-mobile-close" id="navMobileClose" aria-label="Close menu">&#x2715;</button>
+    </li>
     <li><a href="index.html" class="active">Home</a></li>
     <li><a href="about.html">About</a></li>
     <li><a href="jobs.html">Jobs</a></li>
@@ -18,8 +27,7 @@
     <li><a href="contact.html">Contact</a></li>
     <li><a href="apply.html" class="nav-cta">Apply Now</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
-</nav>
+
 <div class="nav-overlay" id="navOverlay"></div>
 
 <!-- HERO -->

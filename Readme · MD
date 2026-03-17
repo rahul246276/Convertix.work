@@ -1,0 +1,57 @@
+# Convertix.work — Update Notes & Deployment Guide
+
+## Changes Made (Summary)
+
+### STEP 2 — UI / Feature Changes
+- **Premium Work Section** (`index.html`): A full dark-themed section added between the "Features" and "Jobs" grids. A toggle button adds/removes `body.premium-mode` class — switching the entire site to a deep dark theme with brighter gold accents. State persists in `sessionStorage`.
+- **Membership Plans** (`apply.html`): Three clickable plan cards added inside the application form — 3 Months (₹499), 6 Months (₹999), 1 Year (₹1,999). Selecting any plan dynamically shows a notice: *"If you join the Premium Plan, you can earn up to ₹4,999 per month..."*
+- **Paid Courses** (`courses.html`): All 8 course cards now display actual prices (₹199–₹999) with "Enroll →" buttons, replacing the old "FREE" badges.
+
+### STEP 3 — Removed Elements
+- **Google Map** removed from `contact.html`.
+- **Phone numbers** removed from all pages (footers, contact cards, jobs sidebar).
+- **Email addresses** removed from all pages (footers, contact cards, jobs sidebar).
+- A "Get in Touch →" CTA button in footers now replaces the missing contact info.
+
+### STEP 4 — Digital Marketing Image
+- Added a split-layout Digital Marketing feature section at the top of `jobs.html` with a professional analytics dashboard image (`photo-1460925895917-afdab827c52f`).
+- The Digital Marketing job card image was also updated to the same relevant image.
+
+### STEP 5 — Email Integration
+- All form submissions now POST to `/api/send-email` (serverless function).
+- `api/send-email.js` uses the **Resend API** — the API key is NEVER in frontend code.
+- Emails are sent to `checkmymood07@gmail.com` and include all form fields.
+- Graceful fallback: if the API is unreachable (local dev), the form still shows success.
+
+---
+
+## Deployment Setup (Vercel)
+
+1. Push the entire project (including `api/` folder) to GitHub.
+2. Import the repository into [Vercel](https://vercel.com).
+3. In the Vercel dashboard → **Settings → Environment Variables**, add:
+   ```
+   RESEND_API_KEY = re_your_key_here
+   ```
+4. Create a free [Resend](https://resend.com) account and get your API key.
+5. For production: verify your domain in Resend and update the `from:` field in `api/send-email.js`:
+   ```js
+   from: 'Convertix.work <noreply@yourdomain.com>'
+   ```
+6. For testing without a custom domain, the default `onboarding@resend.dev` sender works with Resend's free tier.
+
+---
+
+## File Structure
+```
+├── index.html          ← Homepage + Premium Work Section
+├── about.html          ← About page (contacts removed)
+├── jobs.html           ← Jobs + Digital Marketing image
+├── courses.html        ← Courses with paid prices
+├── contact.html        ← Contact (map + contacts removed)
+├── apply.html          ← Apply + Membership Plans
+├── style.css           ← All styles including new additions
+├── main.js             ← Premium toggle + membership + email submission
+└── api/
+    └── send-email.js   ← Serverless Resend email handler (Vercel)
+```

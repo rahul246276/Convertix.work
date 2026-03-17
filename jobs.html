@@ -4,17 +4,25 @@
 <meta charset="UTF-8"/><meta name="viewport" content="width=device-width,initial-scale=1"/>
 <title>Available Jobs — Convertix.work</title>
 <link rel="stylesheet" href="style.css"/>
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 </head>
 <body>
 <nav class="navbar">
   <a href="index.html" class="nav-logo">Convertix<span>.</span>work</a>
-  <ul class="nav-links" id="navLinks">
+  
+  <button class="hamburger" id="hamburger" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
+</nav>
+<ul class="nav-links" id="navLinks">
+    <!-- Mobile menu header: logo + close button -->
+    <li class="nav-mobile-header" style="list-style:none;padding:0;margin:0">
+      <span class="nav-mobile-logo">Convertix<span>.</span>work</span>
+      <button class="nav-mobile-close" id="navMobileClose" aria-label="Close menu">&#x2715;</button>
+    </li>
     <li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li>
     <li><a href="jobs.html" class="active">Jobs</a></li><li><a href="courses.html">Courses</a></li>
     <li><a href="contact.html">Contact</a></li><li><a href="apply.html" class="nav-cta">Apply Now</a></li>
   </ul>
-  <button class="hamburger" id="hamburger" type="button" aria-label="Toggle navigation" aria-expanded="false"><span></span><span></span><span></span></button>
-</nav>
+
 <div class="nav-overlay" id="navOverlay"></div>
 
 <div class="page-hero">

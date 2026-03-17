@@ -1,292 +1,200 @@
-/* ══════════════════════════════════════════════════════════════
-   CONVERTIX.WORK — Shared JavaScript
-   Changes vs original:
-   1. NEW: Premium Mode toggle (body.premium-mode class)
-   2. NEW: Membership plan selection with notice message
-   3. NEW: Form submission via /api/send-email endpoint
-   4. UPDATED: Apply & Contact forms now POST to backend
-══════════════════════════════════════════════════════════════ */
+/* ══════════════════════════════════════════════════
+   CONVERTIX.WORK — main.js
+   EmailJS Service: service_gksw664
+══════════════════════════════════════════════════ */
 
-document.addEventListener('DOMContentLoaded', () => {
+/* EmailJS init */
+(function () {
+  var KEY = 'YOUR_PUBLIC_KEY_HERE'; // ← replace with your EmailJS public key
+  if (typeof emailjs !== 'undefined') { emailjs.init(KEY); }
+  else { window.addEventListener('load', function(){ if(typeof emailjs!=='undefined') emailjs.init(KEY); }); }
+})();
+var EJ_SVC     = 'service_gksw664';
+var EJ_APPLY   = 'template_apply';
+var EJ_CONTACT = 'template_contact';
 
-  /* ── Navbar scroll shadow ───────────────────────────── */
-  const navbar = document.querySelector('.navbar');
-  window.addEventListener('scroll', () => {
-    navbar?.classList.toggle('scrolled', window.scrollY > 30);
-  });
+/* ══════════════════════════════════════════════════ */
+document.addEventListener('DOMContentLoaded', function () {
 
-  /* ── Mobile nav toggle ──────────────────────────────── */
-  const hamburger   = document.getElementById('hamburger');
-  const navLinks    = document.getElementById('navLinks');
-  const navOverlay  = document.getElementById('navOverlay');
-  const toggleNav = () => {
-    const isOpen = hamburger?.classList.toggle('open');
-    navLinks?.classList.toggle('open', isOpen);
-    navOverlay?.classList.toggle('open', isOpen);
-    document.body.classList.toggle('nav-open', isOpen);
-    if (hamburger) hamburger.setAttribute('aria-expanded', String(Boolean(isOpen)));
-  };
-  hamburger?.addEventListener('click', toggleNav);
-  navOverlay?.addEventListener('click', toggleNav);
-  navLinks?.querySelectorAll('a').forEach(a => {
-    a.addEventListener('click', () => {
-      hamburger?.classList.remove('open');
-      hamburger?.setAttribute('aria-expanded', 'false');
-      navLinks?.classList.remove('open');
-      navOverlay?.classList.remove('open');
-      document.body.classList.remove('nav-open');
+  /* ---------- MOBILE MENU ---------- */
+  var hamburger = document.getElementById('hamburger');
+  var navPanel  = document.getElementById('navLinks');
+  var overlay   = document.getElementById('navOverlay');
+  var closeBtn  = document.getElementById('navMobileClose');
+
+  function openMenu() {
+    if (!navPanel) return;
+    navPanel.classList.add('open');
+    if (overlay)   overlay.classList.add('open');
+    if (hamburger) hamburger.classList.add('open');
+    document.body.classList.add('nav-open');
+  }
+
+  function closeMenu() {
+    if (!navPanel) return;
+    navPanel.classList.remove('open');
+    if (overlay)   overlay.classList.remove('open');
+    if (hamburger) hamburger.classList.remove('open');
+    document.body.classList.remove('nav-open');
+  }
+
+  if (hamburger) {
+    hamburger.addEventListener('click', function() {
+      navPanel && navPanel.classList.contains('open') ? closeMenu() : openMenu();
     });
+  }
+
+  if (overlay)  overlay.addEventListener('click', closeMenu);
+  if (closeBtn) closeBtn.addEventListener('click', closeMenu);
+
+  if (navPanel) navPanel.querySelectorAll('a').forEach(function(a){
+    a.addEventListener('click', closeMenu);
   });
 
-  /* ── Active nav link based on current page ──────────── */
-  const path = window.location.pathname.split('/').pop() || 'index.html';
-  document.querySelectorAll('.nav-links a').forEach(a => {
-    const href = a.getAttribute('href');
-    if (href === path || (path === '' && href === 'index.html')) {
-      a.classList.add('active');
-    }
+  /* ---------- NAVBAR SHADOW ON SCROLL ---------- */
+  var navbar = document.querySelector('.navbar');
+  window.addEventListener('scroll', function(){
+    if(navbar) navbar.classList.toggle('scrolled', window.scrollY > 30);
+  }, { passive: true });
+
+  /* ---------- ACTIVE NAV LINK ---------- */
+  var pg = window.location.pathname.split('/').pop() || 'index.html';
+  document.querySelectorAll('.nav-links a').forEach(function(a){
+    if (a.getAttribute('href') === pg) a.classList.add('active');
   });
 
-  /* ── Scroll reveal ──────────────────────────────────── */
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const delay = parseInt(entry.target.dataset.delay || 0);
-        setTimeout(() => entry.target.classList.add('up'), delay);
-        observer.unobserve(entry.target);
+  /* ---------- SCROLL REVEAL ---------- */
+  var revObs = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if(e.isIntersecting){
+        var d = parseInt(e.target.dataset.delay||0);
+        setTimeout(function(){ e.target.classList.add('up'); }, d);
+        revObs.unobserve(e.target);
       }
     });
   }, { threshold: 0.1 });
-  reveals.forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach(function(el){ revObs.observe(el); });
 
-  /* ── Stagger reveal for grid children ──────────────── */
-  document.querySelectorAll('.stagger-parent').forEach(parent => {
-    const children = parent.querySelectorAll('.stagger-child');
-    const childObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          children.forEach((child, i) => {
-            setTimeout(() => {
-              child.style.opacity = '1';
-              child.style.transform = 'translateY(0)';
-            }, i * 90);
-          });
-          childObserver.unobserve(parent);
-        }
-      });
-    }, { threshold: 0.05 });
-    children.forEach(c => {
-      c.style.opacity = '0';
-      c.style.transform = 'translateY(24px)';
-      c.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    });
-    childObserver.observe(parent);
-  });
-
-  /* ── Counter animation ──────────────────────────────── */
-  document.querySelectorAll('[data-count]').forEach(el => {
-    const target  = parseFloat(el.dataset.count);
-    const suffix  = el.dataset.suffix || '';
-    const prefix  = el.dataset.prefix || '';
-    let started   = false;
-    const countObserver = new IntersectionObserver(entries => {
-      if (entries[0].isIntersecting && !started) {
-        started = true;
-        const duration  = 1800;
-        const startTime = performance.now();
-        const update = (now) => {
-          const p     = Math.min((now - startTime) / duration, 1);
-          const eased = 1 - Math.pow(1 - p, 3);
-          const val   = eased * target;
-          el.textContent = prefix + (target % 1 === 0 ? Math.floor(val) : val.toFixed(1)) + suffix;
-          if (p < 1) requestAnimationFrame(update);
-          else el.textContent = prefix + target + suffix;
-        };
-        requestAnimationFrame(update);
+  /* ---------- STAGGER CHILDREN ---------- */
+  document.querySelectorAll('.stagger-parent').forEach(function(parent){
+    var kids = parent.querySelectorAll('.stagger-child');
+    var obs = new IntersectionObserver(function(entries){
+      if(entries[0].isIntersecting){
+        kids.forEach(function(c,i){
+          setTimeout(function(){ c.style.opacity='1'; c.style.transform='translateY(0)'; }, i*90);
+        });
+        obs.unobserve(parent);
       }
-    }, { threshold: 0.5 });
-    countObserver.observe(el);
+    }, { threshold: 0.05 });
+    kids.forEach(function(c){ c.style.opacity='0'; c.style.transform='translateY(24px)'; c.style.transition='opacity .5s ease,transform .5s ease'; });
+    obs.observe(parent);
   });
 
-  /* ── Tab component ──────────────────────────────────── */
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const group  = btn.dataset.group;
-      const target = btn.dataset.tab;
-      document.querySelectorAll(`[data-group="${group}"].tab-btn`).forEach(b => b.classList.remove('active'));
-      document.querySelectorAll(`[data-group="${group}"].tab-panel`).forEach(p => p.classList.remove('active'));
+  /* ---------- COUNTER ANIMATION ---------- */
+  document.querySelectorAll('[data-count]').forEach(function(el){
+    var target=parseFloat(el.dataset.count), sfx=el.dataset.suffix||'', pfx=el.dataset.prefix||'', started=false;
+    var obs=new IntersectionObserver(function(entries){
+      if(entries[0].isIntersecting && !started){
+        started=true;
+        var t0=performance.now();
+        (function tick(now){
+          var p=Math.min((now-t0)/1800,1), v=(1-Math.pow(1-p,3))*target;
+          el.textContent=pfx+(target%1===0?Math.floor(v):v.toFixed(1))+sfx;
+          if(p<1) requestAnimationFrame(tick); else el.textContent=pfx+target+sfx;
+        })(t0);
+      }
+    }, { threshold:0.5 });
+    obs.observe(el);
+  });
+
+  /* ---------- TABS ---------- */
+  document.querySelectorAll('.tab-btn').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var g=btn.dataset.group, t=btn.dataset.tab;
+      document.querySelectorAll('[data-group="'+g+'"].tab-btn').forEach(function(b){ b.classList.remove('active'); });
+      document.querySelectorAll('[data-group="'+g+'"].tab-panel').forEach(function(p){ p.classList.remove('active'); });
       btn.classList.add('active');
-      document.querySelector(`[data-group="${group}"][data-panel="${target}"]`)?.classList.add('active');
+      var panel=document.querySelector('[data-group="'+g+'"][data-panel="'+t+'"]');
+      if(panel) panel.classList.add('active');
     });
   });
 
-  /* ── Work option select (apply form) ────────────────── */
-  window.selectWork = function(el) {
-    document.querySelectorAll('.work-opt').forEach(o => o.classList.remove('active'));
+  /* ---------- WORK OPTION SELECT ---------- */
+  window.selectWork = function(el){
+    document.querySelectorAll('.work-opt').forEach(function(o){ o.classList.remove('active'); });
     el.classList.add('active');
   };
 
-  /* ══════════════════════════════════════════════════════
-     NEW: PREMIUM MODE TOGGLE
-     Toggles body.premium-mode class to change entire site
-     colour scheme. Persists in sessionStorage.
-  ══════════════════════════════════════════════════════ */
-  const premiumBtn    = document.getElementById('premiumToggleBtn');
-  const premiumStatus = document.getElementById('premiumStatusText');
-
-  // Restore premium state across page load
-  if (sessionStorage.getItem('premiumMode') === 'true') {
+  /* ---------- PREMIUM MODE ---------- */
+  var premBtn=document.getElementById('premiumToggleBtn'), premTxt=document.getElementById('premiumStatusText');
+  if(sessionStorage.getItem('premiumMode')==='true'){
     document.body.classList.add('premium-mode');
-    if (premiumBtn) {
-      premiumBtn.classList.add('active');
-      premiumBtn.setAttribute('aria-pressed', 'true');
-    }
-    if (premiumStatus) premiumStatus.textContent = 'ON — Premium Active';
+    if(premBtn){ premBtn.classList.add('active'); premBtn.setAttribute('aria-pressed','true'); }
+    if(premTxt) premTxt.textContent='ON — Premium Active';
   }
-
-  premiumBtn?.addEventListener('click', () => {
-    const isActive = premiumBtn.classList.toggle('active');
-    document.body.classList.toggle('premium-mode', isActive);
-    premiumBtn.setAttribute('aria-pressed', String(isActive));
-    if (premiumStatus) premiumStatus.textContent = isActive ? 'ON — Premium Active' : 'OFF';
-    sessionStorage.setItem('premiumMode', String(isActive));
+  if(premBtn) premBtn.addEventListener('click', function(){
+    var on=premBtn.classList.toggle('active');
+    document.body.classList.toggle('premium-mode',on);
+    premBtn.setAttribute('aria-pressed',String(on));
+    if(premTxt) premTxt.textContent=on?'ON — Premium Active':'OFF';
+    sessionStorage.setItem('premiumMode',String(on));
   });
 
-  /* ══════════════════════════════════════════════════════
-     NEW: MEMBERSHIP PLAN SELECTION
-     Clicking a plan card highlights it and shows the
-     premium earnings notice message dynamically.
-  ══════════════════════════════════════════════════════ */
-  window.selectMembership = function(card) {
-    // Deselect all, select clicked
-    document.querySelectorAll('.membership-card').forEach(c => c.classList.remove('selected'));
+  /* ---------- MEMBERSHIP PLAN ---------- */
+  window.selectMembership = function(card){
+    document.querySelectorAll('.membership-card').forEach(function(c){ c.classList.remove('selected'); });
     card.classList.add('selected');
-
-    // Update hidden input with selected plan
-    const planInput = document.getElementById('membershipPlanInput');
-    if (planInput) planInput.value = card.dataset.plan || '';
-
-    // Show the premium earnings notice
-    const notice = document.getElementById('membershipNotice');
-    if (notice) {
-      notice.style.display = 'block';
-      // Re-trigger animation on each click
-      notice.style.animation = 'none';
-      notice.offsetHeight; // reflow
-      notice.style.animation = 'fadeSlideIn 0.35s ease';
-    }
+    var inp=document.getElementById('membershipPlanInput'); if(inp) inp.value=card.dataset.plan||'';
+    var notice=document.getElementById('membershipNotice');
+    if(notice){ notice.style.display='block'; notice.style.animation='none'; notice.offsetHeight; notice.style.animation='fadeSlideIn .35s ease'; }
   };
 
-  /* ══════════════════════════════════════════════════════
-     STEP 5 — EMAIL INTEGRATION HELPER
-     Sends form data to the serverless endpoint at
-     /api/send-email which calls the Resend API securely.
-     Falls back to a simulated success for local dev.
-  ══════════════════════════════════════════════════════ */
-  async function sendFormEmail(payload) {
+  /* ---------- EMAIL SENDER ---------- */
+  async function sendEmail(payload, tpl){
+    if(typeof emailjs==='undefined'){ console.warn('EmailJS not loaded'); return; }
     try {
-      const res = await fetch('/api/send-email', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+      await emailjs.send(EJ_SVC, tpl, {
+        form_type: payload.formType||'', from_name: payload.name||'', from_email: payload.email||'',
+        phone: payload.phone||'N/A', city: payload.city||'N/A', state: payload.state||'N/A',
+        job_category: payload.jobCategory||'N/A', work_track: payload.workTrack||'N/A',
+        membership_plan: payload.membershipPlan||'None', subject: payload.subject||'Enquiry',
+        message: payload.message||'—'
       });
-      if (!res.ok) {
-        const err = await res.json().catch(() => ({}));
-        throw new Error(err.message || `HTTP ${res.status}`);
-      }
-      return await res.json();
-    } catch (err) {
-      // If running locally without the API, log and resolve gracefully
-      console.warn('[Convertix] Email API not reachable (local dev?):', err.message);
-      return { ok: true, simulated: true };
-    }
+    } catch(err){ console.error('EmailJS error:', err); }
   }
 
-  /* ── Apply form submit ──────────────────────────────── */
-  const applyForm = document.getElementById('applyForm');
-  applyForm?.addEventListener('submit', async (e) => {
+  /* ---------- APPLY FORM ---------- */
+  var applyForm=document.getElementById('applyForm');
+  if(applyForm) applyForm.addEventListener('submit', async function(e){
     e.preventDefault();
-    const btn      = applyForm.querySelector('.submit-btn');
-    const original = btn.textContent;
-
-    // Collect all form data
-    const data = new FormData(applyForm);
-    const selectedWork = applyForm.querySelector('.work-opt.active h5')?.textContent || '';
-    const selectedPlan = document.getElementById('membershipPlanInput')?.value || 'None';
-
-    btn.textContent = 'Submitting…';
-    btn.disabled    = true;
-
-    // Build payload for email API
-    const payload = {
-      formType:       'Application Form',
-      name:           data.get('name')   || '',
-      email:          data.get('email')  || '',
-      phone:          data.get('phone')  || '',
-      city:           data.get('city')   || '',
-      state:          data.get('state')  || '',
-      jobCategory:    data.get('job')    || '',
-      workTrack:      selectedWork,
-      membershipPlan: selectedPlan,
-      message:        '' // no message field in apply form
-    };
-
-    await sendFormEmail(payload);
-
-    btn.textContent = '✅ Application Sent!';
-    const successMsg = document.getElementById('successMsg');
-    if (successMsg) successMsg.style.display = 'block';
+    var btn=applyForm.querySelector('.submit-btn'), orig=btn.textContent;
+    btn.textContent='Submitting…'; btn.disabled=true;
+    var fd=new FormData(applyForm);
+    var work=applyForm.querySelector('.work-opt.active h5')?.textContent||'';
+    var plan=document.getElementById('membershipPlanInput')?.value||'None';
+    await sendEmail({ formType:'Application Form', name:fd.get('name'), email:fd.get('email'), phone:fd.get('phone'), city:fd.get('city'), state:fd.get('state'), jobCategory:fd.get('job'), workTrack:work, membershipPlan:plan }, EJ_APPLY);
+    btn.textContent='✅ Application Sent!';
+    var ok=document.getElementById('successMsg'); if(ok) ok.style.display='block';
     applyForm.reset();
-
-    // Reset UI state
-    document.querySelectorAll('.work-opt').forEach((o, i) => o.classList.toggle('active', i === 0));
-    document.querySelectorAll('.membership-card').forEach(c => c.classList.remove('selected'));
-    const membershipNotice = document.getElementById('membershipNotice');
-    if (membershipNotice) membershipNotice.style.display = 'none';
-    const membershipInput = document.getElementById('membershipPlanInput');
-    if (membershipInput) membershipInput.value = '';
-
-    setTimeout(() => {
-      btn.textContent = original;
-      btn.disabled    = false;
-      if (successMsg) successMsg.style.display = 'none';
-    }, 5000);
+    document.querySelectorAll('.work-opt').forEach(function(o,i){ o.classList.toggle('active',i===0); });
+    document.querySelectorAll('.membership-card').forEach(function(c){ c.classList.remove('selected'); });
+    var n=document.getElementById('membershipNotice'); if(n) n.style.display='none';
+    var pi=document.getElementById('membershipPlanInput'); if(pi) pi.value='';
+    setTimeout(function(){ btn.textContent=orig; btn.disabled=false; if(ok) ok.style.display='none'; },5000);
   });
 
-  /* ── Contact form submit ────────────────────────────── */
-  const contactForm = document.getElementById('contactForm');
-  contactForm?.addEventListener('submit', async (e) => {
+  /* ---------- CONTACT FORM ---------- */
+  var contactForm=document.getElementById('contactForm');
+  if(contactForm) contactForm.addEventListener('submit', async function(e){
     e.preventDefault();
-    const btn = contactForm.querySelector('.submit-btn');
-    btn.textContent = 'Sending…';
-    btn.disabled    = true;
-
-    const data = new FormData(contactForm);
-
-    // Build payload for email API
-    const payload = {
-      formType: 'Contact Form',
-      name:     data.get('name')    || '',
-      email:    data.get('email')   || '',
-      phone:    data.get('phone')   || '',
-      subject:  data.get('subject') || '',
-      message:  data.get('message') || '',
-      membershipPlan: 'N/A'
-    };
-
-    await sendFormEmail(payload);
-
-    btn.textContent = '✅ Message Sent!';
-    const successEl = document.getElementById('contactSuccess');
-    if (successEl) successEl.style.display = 'block';
+    var btn=contactForm.querySelector('.submit-btn');
+    btn.textContent='Sending…'; btn.disabled=true;
+    var fd=new FormData(contactForm);
+    await sendEmail({ formType:'Contact Form', name:fd.get('name'), email:fd.get('email'), phone:fd.get('phone'), subject:fd.get('subject'), message:fd.get('message'), membershipPlan:'N/A' }, EJ_CONTACT);
+    btn.textContent='✅ Message Sent!';
+    var ok=document.getElementById('contactSuccess'); if(ok) ok.style.display='block';
     contactForm.reset();
-
-    setTimeout(() => {
-      btn.textContent = 'Send Message →';
-      btn.disabled    = false;
-      if (successEl) successEl.style.display = 'none';
-    }, 5000);
+    setTimeout(function(){ btn.textContent='Send Message →'; btn.disabled=false; if(ok) ok.style.display='none'; },5000);
   });
 
 });

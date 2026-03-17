@@ -146,10 +146,14 @@ a { text-decoration: none; }
 .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
 
 .nav-overlay {
-  display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-  background: rgba(0,0,0,0.5); z-index: 198; transition: opacity 0.3s;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.55); z-index: 198;
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
 }
-.nav-overlay.open { display: block; }
+.nav-overlay.open {
+  opacity: 1; visibility: visible; pointer-events: auto;
+}
 
 /* ── BUTTONS ─────────────────────────────────────────── */
 .btn {
@@ -824,20 +828,147 @@ body.premium-mode .premium-work-section { outline: 3px solid rgba(232,184,75,0.3
 @media (max-width: 1024px) { .apply-layout { grid-template-columns: 1fr; } }
 @media (max-width: 600px) { .steps-row { grid-template-columns: repeat(2, 1fr); } .steps-row::before { display: none; } .work-opt-row { grid-template-columns: 1fr; } }
 
-/* ── MOBILE NAV ──────────────────────────────────────── */
+/* =====================================================
+   MOBILE MENU — FIXED. #navLinks is outside <nav>
+   so backdrop-filter no longer blocks position:fixed
+   ===================================================== */
+
+/* Desktop: hide mobile-only items */
+.nav-mobile-header { display: none !important; }
+
+/* Desktop nav — fixed to sit visually inside the navbar */
+#navLinks {
+  position: fixed;
+  top: 0;
+  right: 5%;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 2.2rem;
+  list-style: none;
+  z-index: 201;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── MOBILE ── */
 @media (max-width: 768px) {
-  .hamburger { display: flex; }
-  .nav-links {
-    position: fixed; top: 0; right: -100%; bottom: 0;
-    width: min(320px, 85vw); background: var(--white);
-    flex-direction: column; gap: 0; padding: 5rem 2rem 2rem;
-    z-index: 199; transition: right 0.35s cubic-bezier(0.34,1.1,0.64,1);
-    box-shadow: -20px 0 60px rgba(0,0,0,0.15); align-items: flex-start;
+
+  /* Show hamburger */
+  .hamburger { display: flex !important; }
+
+  /* Panel hidden off-screen LEFT by default */
+  #navLinks {
+    position: fixed !important;
+    top: 0 !important;
+    left: -100% !important;
+    width: 280px !important;
+    height: 100vh !important;
+    background: #fff !important;
+    z-index: 99999 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: stretch !important;
+    list-style: none !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow-y: auto !important;
+    box-shadow: 6px 0 32px rgba(0,0,0,0.25) !important;
+    transition: left 0.3s ease !important;
+    gap: 0 !important;
   }
-  .nav-links.open { right: 0; }
-  .nav-links li { width: 100%; }
-  .nav-links a { display: block; padding: 0.9rem 0; font-size: 1rem; border-bottom: 1px solid var(--border); }
-  .nav-links a::after { display: none; }
-  .nav-cta { margin-top: 1rem; text-align: center; border-radius: var(--radius) !important; }
-  body.nav-open { overflow: hidden; }
+
+  /* OPEN — slides in from left */
+  #navLinks.open {
+    left: 0 !important;
+  }
+
+  /* Dark overlay */
+  #navOverlay {
+    display: none !important;
+    position: fixed !important;
+    inset: 0 !important;
+    background: rgba(0,0,0,0.55) !important;
+    z-index: 99998 !important;
+  }
+  #navOverlay.open { display: block !important; }
+
+  /* Lock scroll */
+  body.nav-open { overflow: hidden !important; }
+
+  /* Panel header bar */
+  .nav-mobile-header {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    background: #0d1b2a !important;
+    padding: 0 1.2rem !important;
+    height: 64px !important;
+    min-height: 64px !important;
+    flex-shrink: 0 !important;
+    list-style: none !important;
+    width: 100% !important;
+    box-sizing: border-box !important;
+  }
+  .nav-mobile-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 700; color: #fff;
+  }
+  .nav-mobile-logo span { color: #e8b84b; }
+  .nav-mobile-close {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: rgba(255,255,255,0.12);
+    border: 1px solid rgba(255,255,255,0.25);
+    color: #fff; font-size: 1.1rem;
+    cursor: pointer; display: flex;
+    align-items: center; justify-content: center;
+    padding: 0; line-height: 1;
+  }
+
+  /* List items */
+  #navLinks li {
+    width: 100% !important;
+    list-style: none !important;
+    padding: 0 1rem !important;
+    box-sizing: border-box !important;
+  }
+  #navLinks li:first-child { padding: 0 !important; }
+  #navLinks li:nth-child(2) { margin-top: 1rem !important; }
+  #navLinks li:last-child { padding-bottom: 2rem !important; }
+
+  /* Links */
+  #navLinks a {
+    display: flex !important;
+    align-items: center !important;
+    gap: 0.6rem !important;
+    padding: 0.85rem 1rem !important;
+    margin-bottom: 0.45rem !important;
+    font-size: 0.96rem !important;
+    font-weight: 600 !important;
+    color: #1e2d3d !important;
+    background: #f6f8fc !important;
+    border: 1px solid #e2e8f0 !important;
+    border-radius: 10px !important;
+    text-decoration: none !important;
+  }
+  #navLinks a::before {
+    content: '›'; color: #c9992a;
+    font-size: 1.2rem; font-weight: 700; flex-shrink: 0;
+  }
+  #navLinks a::after { display: none !important; }
+  #navLinks a:hover, #navLinks a.active {
+    color: #c9992a !important;
+    background: #fff7e0 !important;
+    border-color: #f0d47a !important;
+  }
+
+  /* Apply Now CTA */
+  #navLinks a.nav-cta {
+    background: linear-gradient(135deg,#c9992a,#e8b84b) !important;
+    color: #fff !important; border-color: transparent !important;
+    justify-content: center !important; font-weight: 700 !important;
+    margin-top: 0.4rem !important;
+  }
+  #navLinks a.nav-cta::before { display: none !important; }
+  #navLinks a.nav-cta:hover { background: #0d1b2a !important; }
 }
