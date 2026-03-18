@@ -5,13 +5,13 @@
 
 /* EmailJS init */
 (function () {
-  var KEY = 'YOUR_PUBLIC_KEY_HERE'; // ← replace with your EmailJS public key
+  var KEY = 'aMDt1RooSgJX6vxrh'; // ← replace with your EmailJS public key
   if (typeof emailjs !== 'undefined') { emailjs.init(KEY); }
   else { window.addEventListener('load', function(){ if(typeof emailjs!=='undefined') emailjs.init(KEY); }); }
 })();
 var EJ_SVC     = 'service_gksw664';
-var EJ_APPLY   = 'template_apply';
-var EJ_CONTACT = 'template_contact';
+var EJ_APPLY   = 'template_cu1ev6l';
+var EJ_CONTACT = 'template_cu1ev6l';
 
 /* ══════════════════════════════════════════════════ */
 document.addEventListener('DOMContentLoaded', function () {
